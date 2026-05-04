@@ -1,5 +1,5 @@
 module PROG_TYPES_MOD
-  use PROG_ERROR_MOD
+  use PROG_CONSTANTS_MOD
   implicit none
   
   type :: string
