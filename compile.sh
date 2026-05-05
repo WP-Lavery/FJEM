@@ -23,6 +23,9 @@ done
 
 echo "Compiling FJEM Library..."
 
+mkdir -p $homeDir/.mod
+mkdir -p $homeDir/.o
+
 gfortran -c "$homeDir/mod/FJEM.f90" -fPIC -I "$homeDir/.mod"
 mv *.mod "$homeDir/.mod"
 mv *.smod "$homeDir/.mod"

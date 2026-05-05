@@ -1,5 +1,5 @@
-module PROG_TYPES_MOD
-  use PROG_CONSTANTS_MOD
+module FJEM_BASE_TYPES
+  use FJEM_BASE_CONSTANTS
   implicit none
   
   type :: string
@@ -16,8 +16,20 @@ module PROG_TYPES_MOD
       GENERIC :: write(formatted) => write_string
   end type string
 
+  type :: lexicon
+    TYPE(string), ALLOCATABLE :: lexicon_obj(:)
+    INTEGER :: length = 0
+    contains
+      PROCEDURE :: init => init_lexicon
+      PROCEDURE :: append => append_lexicon
+      PROCEDURE :: set => set_lexicon
+      PROCEDURE :: get => get_lexicon
+      PROCEDURE :: write_lexicon
+      GENERIC :: write(formatted) => write_lexicon
+  end type lexicon
+
   type :: list
-    TYPE(string), ALLOCATABLE :: list_obj(:)
+    REAL(kind=dp), ALLOCATABLE :: list_obj(:)
     INTEGER :: length = 0
     contains
       PROCEDURE :: init => init_list
@@ -26,8 +38,8 @@ module PROG_TYPES_MOD
       PROCEDURE :: get => get_list
       PROCEDURE :: write_list
       GENERIC :: write(formatted) => write_list
-  end type
-
+  end type list
+  
   interface
     module subroutine set_string(left, right)
       CLASS(string), INTENT(INOUT) :: left
@@ -70,8 +82,41 @@ module PROG_TYPES_MOD
     module function cleave_string(this, delimiter) result(split_arr)
       CLASS(string) :: this
       CHARACTER(LEN=*) :: delimiter
-      TYPE(list) :: split_arr
+      TYPE(lexicon) :: split_arr
     end function cleave_string
+  end interface
+
+  interface
+    module subroutine init_lexicon(this, i)
+      CLASS(lexicon) :: this
+      INTEGER :: i
+    end subroutine init_lexicon
+
+    module subroutine append_lexicon(this, str)
+      CLASS(lexicon) :: this
+      TYPE(string) :: str
+    end subroutine append_lexicon
+
+    module subroutine write_lexicon(dtv, unit, iotype, v_list, iostat, iomsg)
+      CLASS(lexicon), INTENT(IN) :: dtv
+      INTEGER, INTENT(IN) :: unit
+      CHARACTER(LEN=*), INTENT(IN) :: iotype
+      INTEGER, INTENT(IN) :: v_list(:)
+      INTEGER, INTENT(OUT) :: iostat
+      CHARACTER(LEN=*), INTENT(INOUT) :: iomsg
+    end subroutine write_lexicon
+
+    module function get_lexicon(this, i) result(val)
+      CLASS(lexicon) :: this
+      INTEGER :: i
+      TYPE(string) :: val
+    end function get_lexicon
+
+    module subroutine set_lexicon(this, i, val)
+      CLASS(lexicon) :: this
+      INTEGER :: i
+      TYPE(string) :: val
+    end subroutine set_lexicon
   end interface
 
   interface
@@ -80,9 +125,9 @@ module PROG_TYPES_MOD
       INTEGER :: i
     end subroutine init_list
 
-    module subroutine append_list(this, str)
+    module subroutine append_list(this, num)
       CLASS(list) :: this
-      TYPE(string) :: str
+      REAL(KIND=dp) :: num
     end subroutine append_list
 
     module subroutine write_list(dtv, unit, iotype, v_list, iostat, iomsg)
@@ -97,17 +142,23 @@ module PROG_TYPES_MOD
     module function get_list(this, i) result(val)
       CLASS(list) :: this
       INTEGER :: i
-      TYPE(string) :: val
+      REAL(KIND=dp) :: val
     end function get_list
 
     module subroutine set_list(this, i, val)
       CLASS(list) :: this
-      INTEGER :: i
-      TYPE(string) :: val
+      INTEGER, OPTIONAL :: i
+      REAL(KIND=dp) :: val
     end subroutine set_list
-  end interface
 
+    module subroutine set_list_all(this, right)
+      CLASS(list), INTENT(INOUT) :: this
+      REAL(KIND=dp), INTENT(IN) :: right
+    end subroutine set_list_all
+  end interface
+  
   interface assignment(=)
     module procedure set_string
+    module procedure set_list_all
   end interface
-end module PROG_TYPES_MOD
+end module FJEM_BASE_TYPES

@@ -1,7 +1,7 @@
-module PROG_PARSE_SPACE
-  use PROG_ERROR_MOD
-  use PROG_CONSTANTS_MOD
-  use PROG_TYPES_MOD
+module FJEM_PARSE_SPACE
+  use FJEM_ERROR_MOD
+  use FJEM_CONSTANTS_MOD
+  use FJEM_TYPES_MOD
   implicit none
   private
   public space_file
@@ -75,4 +75,4 @@ module PROG_PARSE_SPACE
           call error("Undefined statement '" // descriptor%get() // "'.")
       end SELECT
     end subroutine parse_space
-end module PROG_PARSE_SPACE
+end module FJEM_PARSE_SPACE

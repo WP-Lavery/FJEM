@@ -1,4 +1,4 @@
-module PROG_ERROR_MOD
+module FJEM_BASE_ERROR
   implicit none
   private
   public error, warning
@@ -17,4 +17,4 @@ module PROG_ERROR_MOD
       write(*, "(A)", ADVANCE="NO") ESC // "[33m" // "WARNING: " // msg
       write(*, "(A)") ESC // "[0m"
     end subroutine warning
-end module PROG_ERROR_MOD
+end module FJEM_BASE_ERROR

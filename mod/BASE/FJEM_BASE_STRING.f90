@@ -1,5 +1,5 @@
-submodule (PROG_TYPES_MOD) PROG_STRING_LOG
-  use PROG_ERROR_MOD
+submodule (FJEM_BASE_TYPES) FJEM_BASE_STRING
+  use FJEM_BASE_ERROR
   implicit none
   contains
     module procedure set_string
@@ -68,4 +68,4 @@ submodule (PROG_TYPES_MOD) PROG_STRING_LOG
         end if
       end do
     end procedure cleave_string
-end submodule PROG_STRING_LOG
+end submodule FJEM_BASE_STRING
