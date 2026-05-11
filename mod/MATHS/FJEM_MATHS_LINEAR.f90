@@ -1,6 +1,6 @@
 module FJEM_MATHS_LINEAR
   use FJEM_Base
-  use FJEM_MATHS_SPACE
+  use FJEM_MATHS_TYPES
   implicit none
 
   CHARACTER(LEN=*), PARAMETER :: default_method = "GJ"
@@ -17,9 +17,9 @@ module FJEM_MATHS_LINEAR
     function linear_solver(t_matrix, s_vector, method) result(o_vector)
       TYPE(space) :: t_matrix
       TYPE(space) :: s_vector
-      CHARACTER(len=*), OPTIONAL :: method
+      CHARACTER(LEN=*), OPTIONAL :: method
       TYPE(space) :: o_vector
-      CHARACTER(len=*) :: selected_method
+      CHARACTER(LEN=:), ALLOCATABLE :: selected_method
 
       if (present(method)) then
         selected_method = method

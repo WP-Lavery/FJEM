@@ -3,6 +3,7 @@ module FJEM_MATHS_TYPES
   implicit none
 
   type :: space
+    INTEGER :: length
     INTEGER, ALLOCATABLE :: dims(:)
     INTEGER, ALLOCATABLE :: strides(:)
     REAL(KIND=FJEMP), ALLOCATABLE :: obj(:)
@@ -16,7 +17,7 @@ module FJEM_MATHS_TYPES
     module subroutine space_init(this, dims)
       CLASS(space) :: this
       INTEGER, INTENT(IN) :: dims(:)
-    end subroutine space_add
+    end subroutine space_init
 
     module function space_get(this, pos) result(res)
       CLASS(space), TARGET :: this
@@ -28,6 +29,6 @@ module FJEM_MATHS_TYPES
       CLASS(space) :: this
       INTEGER, INTENT(IN) :: pos(:)
       REAL(KIND=FJEMP) :: val
-    end module subroutine space_set
+    end subroutine space_set
   end interface
 end module FJEM_MATHS_TYPES
