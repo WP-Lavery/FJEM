@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exit 1
+
 modDir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 while IFS= read -r file; do
