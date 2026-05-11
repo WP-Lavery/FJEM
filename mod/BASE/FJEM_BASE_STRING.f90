@@ -11,18 +11,6 @@ submodule (FJEM_BASE_TYPES) FJEM_BASE_STRING
       res = ADJUSTL(this%str)
     end procedure get_string
 
-    module procedure read_string
-      CHARACTER(LEN=1024) :: buffer
-      INTEGER :: length
-      
-      do
-        read(unit, "(A)", advance="no", iostat=iostat, iomsg=iomsg, size=length) buffer
-        dtv%str = dtv%str // buffer(1:length)
-        if (is_iostat_eor(iostat)) exit
-        if (iostat /= 0) call error(iomsg)
-      end do
-    end procedure read_string
-
     module procedure write_string
       write(unit, "(A)", iostat=iostat, iomsg=iomsg) dtv%str
     end procedure write_string

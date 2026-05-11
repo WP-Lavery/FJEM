@@ -7,9 +7,9 @@ submodule (FJEM_BASE_TYPES) FJEM_BASE_LEXICON
 
       empty = ""
 
-      if (allocated(this%lexicon_obj)) call error("Lexicon is already initialised.")
-      allocate(this%lexicon_obj(i))
-      this%lexicon_obj = empty
+      if (allocated(this%lex)) call error("Lexicon is already initialised.")
+      allocate(this%lex(i))
+      this%lex = empty
       this%length = i
     end procedure init_lexicon
 
@@ -18,30 +18,34 @@ submodule (FJEM_BASE_TYPES) FJEM_BASE_LEXICON
 
       buffer=this
 
-      if (allocated(this%lexicon_obj)) deallocate(this%lexicon_obj)
+      if (allocated(this%lex)) deallocate(this%lex)
       this%length=this%length+1
-      allocate(this%lexicon_obj(this%length))
-      this%lexicon_obj(1:this%length-1) = buffer%lexicon_obj(:)
-      this%lexicon_obj(this%length) = str
+      allocate(this%lex(this%length))
+      this%lex(1:this%length-1) = buffer%lex(:)
+      this%lex(this%length) = str
     end procedure append_lexicon
 
     module procedure write_lexicon
       INTEGER :: length, i
 
-      if(.not. allocated(dtv%lexicon_obj)) call error("Lexicon is empty.")
-      length = size(dtv%lexicon_obj)
+      if(.not. allocated(dtv%lex)) call error("Lexicon is empty.")
+      length = size(dtv%lex)
 
       do i = 1, length
-        write(unit, "(A)", iostat=iostat, iomsg=iomsg) dtv%lexicon_obj(i)
+        write(unit, "(A)", iostat=iostat, iomsg=iomsg) dtv%lex(i)
       end do
     end procedure write_lexicon
 
     module procedure get_lexicon
-      val = this%lexicon_obj(i)
+      val = this%lex(i)
     end procedure get_lexicon
 
     module procedure set_lexicon
       if (i > this%length) call error("Index is out of range.")
-      this%lexicon_obj(i) = val
+      this%lex(i) = val
     end procedure set_lexicon
+
+    module procedure set_lexicon_all
+      this%lex = right
+    end procedure set_lexicon_all
 end submodule FJEM_BASE_LEXICON

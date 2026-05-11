@@ -37,5 +37,7 @@ rm $homeDir/".o"/*.o
 echo "FJEM Library Compiled!"
 
 mkdir -p $saveMod
+rm $saveMod/*
 mv $homeDir/.mod/* $saveMod
+rm $saveLib/libfjem.so
 mv $homeDir/libfjem.so $saveLib

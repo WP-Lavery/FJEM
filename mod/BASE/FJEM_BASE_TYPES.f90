@@ -10,14 +10,12 @@ module FJEM_BASE_TYPES
       PROCEDURE :: to_lower => to_lower_string
       PROCEDURE :: to_upper => to_upper_string
       PROCEDURE :: cleave => cleave_string
-      PROCEDURE :: read_string
       PROCEDURE :: write_string
-     ! GENERIC :: read(formatted) => read_string
       GENERIC :: write(formatted) => write_string
   end type string
 
   type :: lexicon
-    TYPE(string), ALLOCATABLE :: lexicon_obj(:)
+    TYPE(string), ALLOCATABLE :: lex(:)
     INTEGER :: length = 0
     contains
       PROCEDURE :: init => init_lexicon
@@ -29,7 +27,7 @@ module FJEM_BASE_TYPES
   end type lexicon
 
   type :: list
-    REAL(kind=dp), ALLOCATABLE :: list_obj(:)
+    REAL(kind=FJEMP), ALLOCATABLE :: lst(:)
     INTEGER :: length = 0
     contains
       PROCEDURE :: init => init_list
@@ -50,15 +48,6 @@ module FJEM_BASE_TYPES
       CLASS(string) :: this
       CHARACTER(LEN=:), ALLOCATABLE :: res
     end function get_string
-
-    module subroutine read_string(dtv, unit, iotype, v_list, iostat, iomsg)
-      CLASS(string), INTENT(INOUT) :: dtv
-      INTEGER, INTENT(IN) :: unit
-      CHARACTER(LEN=*), INTENT(IN) :: iotype
-      INTEGER, INTENT(IN) :: v_list(:)
-      INTEGER, INTENT(OUT) :: iostat
-      CHARACTER(LEN=*), INTENT(INOUT) :: iomsg
-    end subroutine read_string
 
     module subroutine write_string(dtv, unit, iotype, v_list, iostat, iomsg)
       CLASS(string), INTENT(IN) :: dtv
@@ -117,6 +106,11 @@ module FJEM_BASE_TYPES
       INTEGER :: i
       TYPE(string) :: val
     end subroutine set_lexicon
+    
+    module subroutine set_lexicon_all(this, right)
+      CLASS(lexicon), INTENT(INOUT) :: this
+      TYPE(string), INTENT(IN) :: right
+    end subroutine set_lexicon_all
   end interface
 
   interface
@@ -127,7 +121,7 @@ module FJEM_BASE_TYPES
 
     module subroutine append_list(this, num)
       CLASS(list) :: this
-      REAL(KIND=dp) :: num
+      REAL(KIND=FJEMP) :: num
     end subroutine append_list
 
     module subroutine write_list(dtv, unit, iotype, v_list, iostat, iomsg)
@@ -142,23 +136,24 @@ module FJEM_BASE_TYPES
     module function get_list(this, i) result(val)
       CLASS(list) :: this
       INTEGER :: i
-      REAL(KIND=dp) :: val
+      REAL(KIND=FJEMP) :: val
     end function get_list
 
     module subroutine set_list(this, i, val)
       CLASS(list) :: this
       INTEGER, OPTIONAL :: i
-      REAL(KIND=dp) :: val
+      REAL(KIND=FJEMP) :: val
     end subroutine set_list
 
     module subroutine set_list_all(this, right)
       CLASS(list), INTENT(INOUT) :: this
-      REAL(KIND=dp), INTENT(IN) :: right
+      REAL(KIND=FJEMP), INTENT(IN) :: right
     end subroutine set_list_all
   end interface
   
   interface assignment(=)
     module procedure set_string
     module procedure set_list_all
+    module procedure set_lexicon_all
   end interface
 end module FJEM_BASE_TYPES
