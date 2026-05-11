@@ -3,24 +3,31 @@ module FJEM_MATHS_TYPES
   implicit none
 
   type :: space
-    INTEGER :: order = 0
-    TYPE(list), ALLOCATABLE :: obj(:)
+    INTEGER, ALLOCATABLE :: dims(:)
+    INTEGER, ALLOCATABLE :: strides(:)
+    REAL(KIND=FJEMP), ALLOCATABLE :: obj(:)
     contains
-      PROCEDURE :: add => space_add
+      PROCEDURE :: init => space_init
       PROCEDURE :: get => space_get
+      PROCEDURE :: set => space_set
   end type space
 
   interface
-    module subroutine space_add(this, i, val)
+    module subroutine space_init(this, dims)
       CLASS(space) :: this
-      INTEGER :: i
-      TYPE(list), ALLOCATABLE, OPTIONAL :: val(:)
+      INTEGER, INTENT(IN) :: dims(:)
     end subroutine space_add
 
-    module function space_get(this, i) result(res)
+    module function space_get(this, pos) result(res)
       CLASS(space), TARGET :: this
-      INTEGER :: i
-      TYPE(list), POINTER :: res
+      INTEGER, INTENT(IN) :: pos(:)
+      REAL(KIND=FJEMP) :: res
     end function space_get
+
+    module subroutine space_set(this, pos, val)
+      CLASS(space) :: this
+      INTEGER, INTENT(IN) :: pos(:)
+      REAL(KIND=FJEMP) :: val
+    end module subroutine space_set
   end interface
 end module FJEM_MATHS_TYPES
