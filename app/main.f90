@@ -2,7 +2,6 @@ PROGRAM main
   USE FJEM
   IMPLICIT NONE
 
-  print *, FJEM_PRECISION
-  print *, pi_
-  print *, e_
+  TYPE(wavefront) :: obj
+  call obj%read("./src/FJEM.f90")
 END PROGRAM main
