@@ -1,0 +1,11 @@
+# FPM build Directory
+build/
+
+# FPM local cache
+.fpm/
+
+# Junk files
+.DS_Store
+.vscode/
+.idea/
+*.swp
