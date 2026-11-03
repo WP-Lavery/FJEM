@@ -2,6 +2,7 @@ MODULE FJEM
   USE FJEM_CONSTANTS
   USE FJEM_ERROR
   USE FJEM_MATHS
+  USE FJEM_IO
   IMPLICIT NONE
   PRIVATE
 
@@ -13,4 +14,8 @@ MODULE FJEM
 
   ! Re-Export FJEM_MATHS exports. !
   public :: pi_, e_
+
+  ! Re-Export FJEM_IO exports. !
+  public :: file_exists
+  public :: wavefront
 END MODULE FJEM
