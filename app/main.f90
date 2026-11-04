@@ -2,6 +2,8 @@ PROGRAM main
   USE FJEM
   IMPLICIT NONE
 
-  TYPE(wavefront) :: obj
-  call obj%read("./src/FJEM.f90")
+  TYPE(shell_argument_reader) :: args
+  call args%init()
+  print *, args%arg_count
+  print *, args
 END PROGRAM main

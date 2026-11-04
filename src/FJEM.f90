@@ -3,6 +3,7 @@ MODULE FJEM
   USE FJEM_ERROR
   USE FJEM_MATHS
   USE FJEM_IO
+  USE FJEM_STRING
   IMPLICIT NONE
   PRIVATE
 
@@ -17,5 +18,9 @@ MODULE FJEM
 
   ! Re-Export FJEM_IO exports. !
   public :: file_exists
+  public :: shell_argument_reader
   public :: wavefront
+
+  ! Re-Export FJEM_STRING exports. !
+  public :: string, ASSIGNMENT(=)
 END MODULE FJEM

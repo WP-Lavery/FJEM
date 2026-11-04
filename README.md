@@ -9,7 +9,7 @@ The kitchen-sink Fortran library that nobody asked for.
 FJEM is built on the FPM framework. To add FJEM as a dependency in your own FPM project, add this github repository to the dependencies section of your fpm.toml file:
 ```
 [dependencies]
-fjem = { git = "https://github.com/WP-Lavery/FJEM" }
+FJEM = { git = "https://github.com/WP-Lavery/FJEM" }
 ```
 Alternatively, you can install FJEM for use in non-FPM projects by using FPM install. First, clone this repository:
 ```
