@@ -9,5 +9,6 @@ MODULE FJEM_CORE
 
   PUBLIC :: FJEM_PRECISION
 
-  PUBLIC :: string, ASSIGNMENT(=)
+  PUBLIC :: String, concat, ASSIGNMENT(=)
+  public :: int_to_char, real_to_char, stringify
 END MODULE FJEM_CORE
