@@ -1,4 +1,4 @@
-MODULE FJEM_ERROR
+MODULE FJEM_CORE_ERROR
   USE, INTRINSIC :: iso_fortran_env, only: error_unit
   IMPLICIT NONE
   PRIVATE
@@ -26,4 +26,4 @@ MODULE FJEM_ERROR
 
       write(error_unit, '(a)') ESC // "[1;33m" // "WARNING: " // TRIM(msg) // ESC // "[0m"
     END SUBROUTINE throw_warning
-END MODULE FJEM_ERROR
+END MODULE FJEM_CORE_ERROR
