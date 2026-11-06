@@ -48,11 +48,14 @@ SUBMODULE (FJEM_STRUCTS_TUPLES) FJEM_STRUCTS_TUPLES_KVP
     END PROCEDURE get_value
 
     MODULE PROCEDURE write_kvp
-      TYPE(String) :: key_string, value_string
-      print *, concat([String("{ "), &
+      TYPE(String) :: out_string
+      
+      out_string = concat([String("{ "), &
         stringify(dtv%key_data), &
         String(": "), &
         stringify(dtv%value_data), &
         String(" }")])
+
+      WRITE(unit, "(A)", IOSTAT=iostat, IOMSG=iomsg) out_string%content
     END PROCEDURE write_kvp
 END SUBMODULE FJEM_STRUCTS_TUPLES_KVP

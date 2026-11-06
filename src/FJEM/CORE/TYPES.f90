@@ -72,16 +72,20 @@ MODULE FJEM_CORE_TYPES
 
     FUNCTION int_to_char(num) RESULT(res)
       INTEGER, INTENT(IN) :: num
-      CHARACTER(LEN=DIGITS(num)) :: res
+      CHARACTER(LEN=RANGE(num) + 2) :: buffer
+      CHARACTER(LEN=:), ALLOCATABLE :: res
 
-      WRITE(res, "(I0)") num
+      WRITE(buffer, "(I0)") num
+      res = TRIM(ADJUSTL(buffer))
     END FUNCTION int_to_char
 
     FUNCTION real_to_char(num) RESULT(res)
       REAL(KIND=FJEM_PRECISION), INTENT(IN) :: num
-      CHARACTER(LEN=DIGITS(num)) :: res
+      CHARACTER(LEN=RANGE(num) + 2) :: buffer
+      CHARACTER(LEN=:), ALLOCATABLE :: res
 
-      WRITE(res, "(G0)") num
+      WRITE(buffer, "(G0)") num
+      res = TRIM(ADJUSTL(buffer))
     END FUNCTION real_to_char
 
     FUNCTION stringify(val) RESULT(res)

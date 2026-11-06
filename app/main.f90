@@ -4,6 +4,6 @@ PROGRAM main
   
   INTEGER, PARAMETER :: FJEMP = FJEM_PRECISION
   TYPE(KeyValuePair) :: kvp_test
-  kvp_test = KeyValuePair("Test Key", INT(200))
+  kvp_test = KeyValuePair("Test Key", -2.3_FJEMP)
   print *, kvp_test
 END PROGRAM main
