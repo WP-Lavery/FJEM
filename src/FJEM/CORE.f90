@@ -21,7 +21,7 @@ MODULE FJEM_CORE
 
   CONTAINS
     FUNCTION typeof(var) RESULT(res)
-      CLASS(*) :: var
+      CLASS(*), INTENT(IN) :: var
       INTEGER :: res
 
       SELECT TYPE (var)
@@ -39,7 +39,7 @@ MODULE FJEM_CORE
     END FUNCTION typeof
 
     FUNCTION typeName(var) RESULT(res)
-      CLASS(*) :: var
+      CLASS(*), INTENT(IN) :: var
       CHARACTER(LEN=:), ALLOCATABLE :: res
 
       SELECT TYPE (var)
