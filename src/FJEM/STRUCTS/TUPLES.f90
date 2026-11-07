@@ -6,6 +6,7 @@ MODULE FJEM_STRUCTS_TUPLES
 
   TYPE :: KeyValuePair
     PRIVATE
+    INTEGER, PUBLIC :: key_type, value_type
     CLASS(*), ALLOCATABLE :: key_data
     CLASS(*), ALLOCATABLE :: value_data
     CONTAINS

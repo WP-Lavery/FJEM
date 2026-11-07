@@ -5,6 +5,8 @@ SUBMODULE (FJEM_STRUCTS_TUPLES) FJEM_STRUCTS_TUPLES_KVP
     MODULE PROCEDURE init_kvp
       ALLOCATE(res%key_data, source=key_data)
       ALLOCATE(res%value_data, source=value_data)
+      res%key_type = typeof(key_data)
+      res%value_type = typeof(value_data)
     END PROCEDURE init_kvp
 
     MODULE PROCEDURE get_key
@@ -48,12 +50,25 @@ SUBMODULE (FJEM_STRUCTS_TUPLES) FJEM_STRUCTS_TUPLES_KVP
     END PROCEDURE get_value
 
     MODULE PROCEDURE write_kvp
-      TYPE(String) :: out_string
+      TYPE(String) :: key_string, value_string, out_string      
+
+      !- Checks key-value types and quotes strings for clarity -!
+      IF (dtv%key_type == 5) THEN
+        key_string = concat([String("'"), stringify(dtv%key_data), String("'")])
+      ELSE
+        key_string = stringify(dtv%key_data)
+      END IF
+
+      IF (dtv%value_type == 5) THEN
+        value_string = concat([String("'"), stringify(dtv%value_data), String("'")])
+      ELSE
+        value_string = stringify(dtv%value_data)
+      END IF
       
       out_string = concat([String("{ "), &
-        stringify(dtv%key_data), &
+        key_string, &
         String(": "), &
-        stringify(dtv%value_data), &
+        value_string, &
         String(" }")])
 
       WRITE(unit, "(A)", IOSTAT=iostat, IOMSG=iomsg) out_string%content
