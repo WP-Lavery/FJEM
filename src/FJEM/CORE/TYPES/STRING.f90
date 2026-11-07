@@ -4,7 +4,7 @@ SUBMODULE (FJEM_CORE_TYPES) FJEM_CORE_TYPES_STRING
   IMPLICIT NONE
   CONTAINS
     MODULE PROCEDURE set_string
-    res%type_id = 101
+      res%type_id = 101
       res%content = char_in
       res%length = LEN(char_in)
     END PROCEDURE set_string
@@ -18,6 +18,7 @@ SUBMODULE (FJEM_CORE_TYPES) FJEM_CORE_TYPES_STRING
     END PROCEDURE write_string
 
     MODULE PROCEDURE assign_char_to_string
+      lhs%type_id = 101
       lhs%content = rhs
       lhs%length = LEN(rhs)
     END PROCEDURE assign_char_to_string
