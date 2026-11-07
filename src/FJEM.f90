@@ -13,6 +13,7 @@ MODULE FJEM
 
   public :: String, concat, ASSIGNMENT(=)
   public :: int_to_char, real_to_char, stringify
+  public :: typeof
 
   ! Re-Export FJEM_MATHS exports. !
   public :: pi_, e_
