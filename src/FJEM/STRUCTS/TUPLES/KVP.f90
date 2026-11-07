@@ -6,6 +6,10 @@ SUBMODULE (FJEM_STRUCTS_TUPLES) FJEM_STRUCTS_TUPLES_KVP
       res = 201  
     END PROCEDURE kvp_id
     
+    MODULE PROCEDURE kvp_name
+      res = "KeyValuePair"  
+    END PROCEDURE kvp_name
+    
     MODULE PROCEDURE init_kvp
       ALLOCATE(res%key_data, source=key_data)
       ALLOCATE(res%value_data, source=value_data)

@@ -3,6 +3,10 @@ SUBMODULE (FJEM_CORE_TYPES) FJEM_CORE_TYPES_STRING
   USE FJEM_CORE_CONSTANTS
   IMPLICIT NONE
   CONTAINS
+    MODULE PROCEDURE string_name
+      res = "String"
+    END PROCEDURE string_name
+    
     MODULE PROCEDURE string_id
       res = 101
     END PROCEDURE string_id

@@ -17,7 +17,7 @@ MODULE FJEM_CORE
   public :: int_to_char, real_to_char, stringify
 
   !- Export functions defined at top level of CORE -!
-  public :: typeof
+  public :: typeof, typeName
 
   CONTAINS
     FUNCTION typeof(var) RESULT(res)
@@ -37,4 +37,22 @@ MODULE FJEM_CORE
         CLASS DEFAULT;                               res = 0
       END SELECT
     END FUNCTION typeof
+
+    FUNCTION typeName(var) RESULT(res)
+      CLASS(*) :: var
+      CHARACTER(LEN=:), ALLOCATABLE :: res
+
+      SELECT TYPE (var)
+        !- FORTRAN primative types are labelled 1-5 as follows -!
+        TYPE IS (INTEGER);                           res = "Integer"
+        TYPE IS (REAL(KIND=FJEM_PRECISION));         res = "Real"
+        TYPE IS (COMPLEX(KIND=FJEM_PRECISION));      res = "Complex"
+        TYPE IS (LOGICAL);                           res = "Logical"
+        TYPE IS (CHARACTER(*));                      res = "Character"
+        !- FJEM CORE types are labelled 101-1xx -!
+      CLASS IS (FJEM_TYPE_WRAPPER);                  res = var%type_name()
+        !- TypeError will return 0 -!
+        CLASS DEFAULT;                               res = "None"
+      END SELECT
+    END FUNCTION typeName
 END MODULE FJEM_CORE

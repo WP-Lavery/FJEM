@@ -11,6 +11,7 @@ MODULE FJEM_STRUCTS_TUPLES
     CLASS(*), ALLOCATABLE :: value_data
     CONTAINS
       PROCEDURE :: type_id => kvp_id
+      PROCEDURE :: type_name => kvp_name
       PROCEDURE :: key => get_key
       PROCEDURE :: value => get_value
       PROCEDURE :: write_kvp
@@ -26,6 +27,11 @@ MODULE FJEM_STRUCTS_TUPLES
       CLASS(KeyValuePair), INTENT(IN) :: self
       INTEGER :: res
     END FUNCTION kvp_id
+    
+    MODULE FUNCTION kvp_name(self) RESULT(res)
+      CLASS(KeyValuePair), INTENT(IN) :: self
+      CHARACTER(LEN=:), ALLOCATABLE :: res
+    END FUNCTION kvp_name
 
     MODULE FUNCTION init_kvp(key_data, value_data) RESULT(res)
       TYPE(KeyValuePair) :: res

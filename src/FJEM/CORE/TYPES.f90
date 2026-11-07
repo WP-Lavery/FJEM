@@ -9,6 +9,7 @@ MODULE FJEM_CORE_TYPES
   TYPE, ABSTRACT :: FJEM_TYPE_WRAPPER
     CONTAINS
       PROCEDURE(type_id_interface), DEFERRED :: type_id
+      PROCEDURE(type_name_interface), DEFERRED :: type_name
   END TYPE
 
   ABSTRACT INTERFACE
@@ -17,6 +18,12 @@ MODULE FJEM_CORE_TYPES
       CLASS(FJEM_TYPE_WRAPPER), INTENT(IN) :: self
       INTEGER :: res
     END FUNCTION
+    
+    FUNCTION type_name_interface(self) RESULT(res)
+      IMPORT :: FJEM_TYPE_WRAPPER
+      CLASS(FJEM_TYPE_WRAPPER), INTENT(IN) :: self
+      CHARACTER(LEN=:), ALLOCATABLE :: res
+    END FUNCTION
   END INTERFACE
 
   TYPE, EXTENDS(FJEM_TYPE_WRAPPER) :: String
@@ -24,6 +31,7 @@ MODULE FJEM_CORE_TYPES
     INTEGER :: length
     CONTAINS
       PROCEDURE :: type_id => string_id
+      PROCEDURE :: type_name => string_name
       PROCEDURE :: get => get_string
       PROCEDURE :: write_string 
       GENERIC :: write(formatted) => write_string
@@ -46,6 +54,11 @@ MODULE FJEM_CORE_TYPES
       CLASS(String), INTENT(IN) :: self
       INTEGER :: res
     END FUNCTION string_id
+    
+    MODULE FUNCTION string_name(self) RESULT(res)
+      CLASS(String), INTENT(IN) :: self
+      CHARACTER(LEN=:), ALLOCATABLE :: res
+    END FUNCTION string_name
 
     MODULE FUNCTION set_string(char_in) RESULT(res)
       CHARACTER(LEN=*), INTENT(IN) :: char_in
