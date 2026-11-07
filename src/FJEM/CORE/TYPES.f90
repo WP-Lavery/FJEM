@@ -7,13 +7,23 @@ MODULE FJEM_CORE_TYPES
   PUBLIC String, concat, ASSIGNMENT(=)
 
   TYPE, ABSTRACT :: FJEM_TYPE_WRAPPER
-    INTEGER :: type_id = 0
+    CONTAINS
+      PROCEDURE(type_id_interface), DEFERRED :: type_id
   END TYPE
+
+  ABSTRACT INTERFACE
+    FUNCTION type_id_interface(self) RESULT(res)
+      IMPORT :: FJEM_TYPE_WRAPPER
+      CLASS(FJEM_TYPE_WRAPPER), INTENT(IN) :: self
+      INTEGER :: res
+    END FUNCTION
+  END INTERFACE
 
   TYPE, EXTENDS(FJEM_TYPE_WRAPPER) :: String
     CHARACTER(LEN=:), ALLOCATABLE :: content
     INTEGER :: length
     CONTAINS
+      PROCEDURE :: type_id => string_id
       PROCEDURE :: get => get_string
       PROCEDURE :: write_string 
       GENERIC :: write(formatted) => write_string
@@ -32,6 +42,11 @@ MODULE FJEM_CORE_TYPES
   END INTERFACE concat
 
   INTERFACE
+    MODULE FUNCTION string_id(self) RESULT(res)
+      CLASS(String), INTENT(IN) :: self
+      INTEGER :: res
+    END FUNCTION string_id
+
     MODULE FUNCTION set_string(char_in) RESULT(res)
       CHARACTER(LEN=*), INTENT(IN) :: char_in
       TYPE(String) :: res

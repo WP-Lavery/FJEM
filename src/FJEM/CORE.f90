@@ -31,8 +31,8 @@ MODULE FJEM_CORE
         TYPE IS (COMPLEX(KIND=FJEM_PRECISION));      res = 3
         TYPE IS (LOGICAL);                           res = 4
         TYPE IS (CHARACTER(*));                      res = 5
-        !- FJEM CORE types are labelled 11-12 -!
-      CLASS IS (FJEM_TYPE_WRAPPER);                  res = var%type_id
+        !- FJEM CORE types are labelled 101-1xx -!
+      CLASS IS (FJEM_TYPE_WRAPPER);                  res = var%type_id()
         !- TypeError will return 0 -!
         CLASS DEFAULT;                               res = 0
       END SELECT
