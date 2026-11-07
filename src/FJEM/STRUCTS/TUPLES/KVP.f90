@@ -3,6 +3,7 @@ SUBMODULE (FJEM_STRUCTS_TUPLES) FJEM_STRUCTS_TUPLES_KVP
   IMPLICIT NONE
   CONTAINS
     MODULE PROCEDURE init_kvp
+      res%type_id = 201
       ALLOCATE(res%key_data, source=key_data)
       ALLOCATE(res%value_data, source=value_data)
       res%key_type = typeof(key_data)

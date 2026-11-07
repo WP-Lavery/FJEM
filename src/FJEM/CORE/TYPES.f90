@@ -3,14 +3,19 @@ MODULE FJEM_CORE_TYPES
   USE FJEM_CORE_CONSTANTS
   IMPLICIT NONE
   PRIVATE
+  PUBLIC FJEM_TYPE_WRAPPER
   PUBLIC String, concat, ASSIGNMENT(=)
 
-  TYPE :: String
+  TYPE, ABSTRACT :: FJEM_TYPE_WRAPPER
+    INTEGER :: type_id = 0
+  END TYPE
+
+  TYPE, EXTENDS(FJEM_TYPE_WRAPPER) :: String
     CHARACTER(LEN=:), ALLOCATABLE :: content
     INTEGER :: length
     CONTAINS
       PROCEDURE :: get => get_string
-      PROCEDURE :: write_string
+      PROCEDURE :: write_string 
       GENERIC :: write(formatted) => write_string
   END TYPE
 

@@ -12,6 +12,7 @@ MODULE FJEM_CORE
   PUBLIC :: FJEM_PRECISION
 
   !- Re-Export FJEM_CORE_TYPES exports -!
+  public :: FJEM_TYPE_WRAPPER
   public :: String, concat, ASSIGNMENT(=)
   public :: int_to_char, real_to_char, stringify
 
@@ -31,7 +32,7 @@ MODULE FJEM_CORE
         TYPE IS (LOGICAL);                           res = 4
         TYPE IS (CHARACTER(*));                      res = 5
         !- FJEM CORE types are labelled 11-12 -!
-        TYPE IS (String);                            res = 11
+      CLASS IS (FJEM_TYPE_WRAPPER);                  res = var%type_id
         !- TypeError will return 0 -!
         CLASS DEFAULT;                               res = 0
       END SELECT

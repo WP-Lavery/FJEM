@@ -4,7 +4,7 @@ MODULE FJEM_STRUCTS_TUPLES
   PRIVATE
   PUBLIC KeyValuePair
 
-  TYPE :: KeyValuePair
+  TYPE, EXTENDS(FJEM_TYPE_WRAPPER) :: KeyValuePair
     PRIVATE
     INTEGER, PUBLIC :: key_type, value_type
     CLASS(*), ALLOCATABLE :: key_data

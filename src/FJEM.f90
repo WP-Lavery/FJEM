@@ -11,6 +11,7 @@ MODULE FJEM
 
   public :: FJEM_PRECISION
 
+  public :: FJEM_TYPE_WRAPPER
   public :: String, concat, ASSIGNMENT(=)
   public :: int_to_char, real_to_char, stringify
   public :: typeof
