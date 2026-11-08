@@ -3,7 +3,11 @@ PROGRAM main
   IMPLICIT NONE
   
   INTEGER, PARAMETER :: FJEMP = FJEM_PRECISION
+  TYPE(shell_argument_reader) :: args
   TYPE(KeyValuePair) :: kvp_test
+
+  call args%init()
+  print *, args
   kvp_test = KeyValuePair("Test Key", -2.3_FJEMP)
   print *, kvp_test
   print *, typeName(kvp_test)

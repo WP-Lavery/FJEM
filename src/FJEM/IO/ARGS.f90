@@ -40,7 +40,7 @@ MODULE FJEM_IO_ARGS
 
       IF (dtv%arg_count > 0) THEN
         DO n = 1, dtv%arg_count
-          PRINT *, dtv%args(n)
+          WRITE(unit, "(A)", iostat=iostat, iomsg=iomsg) dtv%args(n)%content
         END DO
       END IF
 
